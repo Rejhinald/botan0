@@ -70,7 +70,7 @@ export const listPlantDetails = (id) => async (dispatch) => {
 export const deletePlants = (id) => async (dispatch, getState) => {
   try {
     dispatch({
-      type: PRODUCT_DELETE_REQUEST,
+      type: PLANT_DELETE_REQUEST,
     });
 
     const {
@@ -87,11 +87,11 @@ export const deletePlants = (id) => async (dispatch, getState) => {
     const { data } = await axios.delete(`/api/products/delete/${id}/`, config);
 
     dispatch({
-      type: PRODUCT_DELETE_SUCCESS,
+      type: PLANT_DELETE_SUCCESS,
     });
   } catch (error) {
     dispatch({
-      type: PRODUCT_DELETE_FAIL,
+      type: PLANT_DELETE_FAIL,
       payload:
         error.response && error.response.data.detail
           ? error.response.data.detail
@@ -103,7 +103,7 @@ export const deletePlants = (id) => async (dispatch, getState) => {
 export const createPlants = () => async (dispatch, getState) => {
   try {
     dispatch({
-      type: PRODUCT_CREATE_REQUEST,
+      type: PLANT_CREATE_REQUEST,
     });
 
     const {
@@ -120,12 +120,12 @@ export const createPlants = () => async (dispatch, getState) => {
     const { data } = await axios.post(`/api/products/create/`, {}, config);
 
     dispatch({
-      type: PRODUCT_CREATE_SUCCESS,
+      type: PLANT_CREATE_SUCCESS,
       payload: data,
     });
   } catch (error) {
     dispatch({
-      type: PRODUCT_CREATE_FAIL,
+      type: PLANT_CREATE_FAIL,
       payload:
         error.response && error.response.data.detail
           ? error.response.data.detail
