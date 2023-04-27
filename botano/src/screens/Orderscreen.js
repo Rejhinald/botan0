@@ -3,9 +3,13 @@ import { PayPalButton } from "react-paypal-button-v2";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
 import { ListGroup } from "react-bootstrap";
-function Orderscreen() {
+
+function Orderscreen({ match }) {
+  const orderId = match.params.id;
+
   const [sdkReady, setSdkReady] = useState(false);
   const dispatch = useDispatch();
+
   const addPayPalScript = () => {
     const script = document.createElement("script");
     script.type = "text/javascript";
@@ -18,12 +22,15 @@ function Orderscreen() {
     document.body.appendChild(script);
   };
 
-  const orderPay = useState((state) => state.orderPay);
+  const orderDetails = useSelector((state) => state.orderDetails);
+  const { order, loading, error } = orderDetails;
+
+  const orderPay = useSelector((state) => state.orderPay);
   const { loading: loadingPay, success: successPay } = orderPay;
 
   useEffect(() => {
-    if (!order || successPay || !order._id !== Number(orderId.id)) {
-      dispatchEvent(getOrderDetails(orderId.id));
+    if (!order || successPay || order._id !== orderId) {
+      dispatch(getOrderDetails(orderId));
     } else if (!order.isPaid) {
       if (!window.paypal) {
         addPayPalScript();
@@ -31,29 +38,25 @@ function Orderscreen() {
         setSdkReady(true);
       }
     }
-  }, [successPay]);
+  }, [dispatch, orderId, order, successPay]);
 
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(orderId, paymentResult));
   };
 
-  {
-    !order.isPaid && (
-      <ListGroup.Item>
-        {loadingPay && <Loader />}
-        {sdkReady ? (
-          <Loader />
-        ) : (
-          <PayPalButton
-            amount={order.totalPrice}
-            onSuccess={successPaymentHandler}
-          />
-        )}
-      </ListGroup.Item>
-    );
-  }
-
-  return <div>Orderscreen</div>;
+  return (
+    <ListGroup.Item>
+      {loadingPay && <Loader />}
+      {!order.isPaid && sdkReady ? (
+        <PayPalButton
+          amount={order.totalPrice}
+          onSuccess={successPaymentHandler}
+        />
+      ) : (
+        <Loader />
+      )}
+    </ListGroup.Item>
+  );
 }
 
 export default Orderscreen;
