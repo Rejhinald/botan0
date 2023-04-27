@@ -4,4 +4,6 @@ from users.models import *
 # Register your models here.
 
 admin.site.register(Plant)
+admin.site.register(CustomUser)
+
 

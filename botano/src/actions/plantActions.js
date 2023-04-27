@@ -1,3 +1,4 @@
+import { BASE_URL } from "../config,js";
 import {
   PLANT_LIST_REQUEST,
   PLANT_LIST_SUCCESS,
@@ -30,10 +31,7 @@ export const listPlants = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(
-      "http://sddizon1.pythonanywhere.com/api/plants/",
-      config
-    );
+    const { data } = await axios.get(`${BASE_URL}/api/plants/`, config);
 
     dispatch({
       type: PLANT_LIST_SUCCESS,
@@ -56,9 +54,7 @@ export const listPlantDetails = (id) => async (dispatch) => {
       type: PLANT_DETAILS_REQUEST,
     });
 
-    const { data } = await axios.get(
-      `http://sddizon1.pythonanywhere.com/api/plants/${id}`
-    );
+    const { data } = await axios.get(`${BASE_URL}/api/plants/${id}`);
 
     dispatch({
       type: PLANT_DETAILS_SUCCESS,
@@ -93,7 +89,7 @@ export const deletePlants = (id) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.delete(
-      `https://sddizon1.pythonanywhere.com/api/products/delete/${id}/`,
+      `${BASE_URL}/api/products/delete/${id}/`,
       config
     );
 
@@ -129,7 +125,7 @@ export const createPlants = () => async (dispatch, getState) => {
     };
 
     const { data } = await axios.post(
-      `https://sddizon1.pythonanywhere.com/api/products/create/`,
+      `${BASE_URL}/api/products/create/`,
       {},
       config
     );
