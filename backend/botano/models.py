@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
 import os, random
 # Create your models here.
 
@@ -16,7 +16,7 @@ def upload_image_path(instance, filename):
 
 
 class Plant(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=200, null=True, blank=True)
     image = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
