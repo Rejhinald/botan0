@@ -1,11 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { PayPalButton } from "react-paypal-button-v2";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
 import { ListGroup } from "react-bootstrap";
-function Orderscreen() {
-  const [sdkReady, setSdkReady] = useSelector(false);
-  const dispatch = useDispatch(); 
+import { getOrderDetails, payOrder } from "../actions/orderActions";
+
+function Orderscreen({ match }) {
+  const [sdkReady, setSdkReady] = useState(false);
+  const dispatch = useDispatch();
+  const orderId = match.params.id;
+
   const addPayPalScript = () => {
     const script = document.createElement("script");
     script.type = "text/javascript";
@@ -18,12 +22,15 @@ function Orderscreen() {
     document.body.appendChild(script);
   };
 
+  const orderDetails = useSelector((state) => state.orderDetails);
+  const { loading, order, error } = orderDetails;
+
   const orderPay = useSelector((state) => state.orderPay);
   const { loading: loadingPay, success: successPay } = orderPay;
 
   useEffect(() => {
-    if (!order || successPay || !order._id !== Number(orderId.id)) {
-      dispatchEvent(getOrderDetails(orderId.id));
+    if (!order || successPay || order._id !== orderId) {
+      dispatch(getOrderDetails(orderId));
     } else if (!order.isPaid) {
       if (!window.paypal) {
         addPayPalScript();
@@ -31,27 +38,11 @@ function Orderscreen() {
         setSdkReady(true);
       }
     }
-  }, [successPay]);
+  }, [dispatch, orderId, order, successPay]);
 
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(orderId, paymentResult));
   };
-
-  {
-    !order.isPaid && (
-      <ListGroup.Item>
-        {loadingPay && <Loader />}
-        {sdkReady ? (
-          <Loader />
-        ) : (
-          <PayPalButton
-            amount={order.totalPrice}
-            onSuccess={successPaymentHandler}
-          />
-        )}
-      </ListGroup.Item>
-    );
-  }
 
   return <div>Orderscreen</div>;
 }
