@@ -4,7 +4,7 @@
 //   ORDER_CREATE_SUCCESS,
 //   ORDER_CREATE_FAIL,
 
-const { PAYMENT_SUCCESS } = require("../constants/orderConstants")
+const { PAYMENT_SUCCESS } = require("../constants/orderConstants");
 
 //   ORDER_DETAILS_REQUEST,
 //   ORDER_DETAILS_SUCCESS,
@@ -168,7 +168,6 @@ const { PAYMENT_SUCCESS } = require("../constants/orderConstants")
 //           payload: data
 //       })
 
-
 //   } catch (error) {
 //       dispatch({
 //           type: ORDER_LIST_MY_FAIL,
@@ -252,7 +251,7 @@ const { PAYMENT_SUCCESS } = require("../constants/orderConstants")
 // };
 
 export const paySubscribe = () => (dispatch) => {
-    dispatch({
-        type: PAYMENT_SUCCESS
-    });
-}
+  dispatch({
+    type: PAYMENT_SUCCESS,
+  });
+};
