@@ -8,7 +8,7 @@ import { listPlants } from "../actions/plantActions";
 
 const Searchscreen = () => {
   const dispatch = useDispatch();
-
+  const [search, setSearch] = useState("");
   const plantList = useSelector((state) => state.plantList);
   const { loading, error, plants } = plantList;
 
