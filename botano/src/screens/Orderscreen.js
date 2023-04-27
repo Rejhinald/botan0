@@ -3,6 +3,7 @@ import { PayPalButton } from "react-paypal-button-v2";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
 import { ListGroup } from "react-bootstrap";
+import { getOrderDetails, payOrder } from "../actions/orderActions";
 
 function Orderscreen({ match }) {
   const orderId = match.params.id;
