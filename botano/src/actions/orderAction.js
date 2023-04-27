@@ -34,7 +34,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.post(`/api/orders`, order, config);
+    const { data } = await axios.post(`https://sddizon1.pythonanywhere.com/api/orders`, order, config);
 
     dispatch({
       type: ORDER_CREATE_SUCCESS,
@@ -67,7 +67,7 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`/api/orders/${id}`, config);
+    const { data } = await axios.get(`https://sddizon1.pythonanywhere.com/api/orders/${id}`, config);
 
     dispatch({
       type: ORDER_DETAILS_SUCCESS,
@@ -103,7 +103,7 @@ export const payOrder =
       };
 
       const { data } = await axios.put(
-        `/api/orders/${orderId}/pay`,
+        `https://sddizon1.pythonanywhere.com/api/orders/${orderId}/pay`,
         paymentResult,
         config
       );

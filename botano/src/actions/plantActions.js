@@ -31,7 +31,7 @@ export const listPlants = () => async (dispatch, getState) => {
     };
 
     const { data } = await axios.get(
-      "http://127.0.0.1:8000/api/plants/",
+      "http://127.0.0.1:8000https://sddizon1.pythonanywhere.com/api/plants/",
       config
     );
 
@@ -56,7 +56,9 @@ export const listPlantDetails = (id) => async (dispatch) => {
       type: PLANT_DETAILS_REQUEST,
     });
 
-    const { data } = await axios.get(`http://127.0.0.1:8000/api/plants/${id}`);
+    const { data } = await axios.get(
+      `http://127.0.0.1:8000https://sddizon1.pythonanywhere.com/api/plants/${id}`
+    );
 
     dispatch({
       type: PLANT_DETAILS_SUCCESS,
@@ -90,7 +92,10 @@ export const deletePlants = (id) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.delete(`/api/products/delete/${id}/`, config);
+    const { data } = await axios.delete(
+      `https://sddizon1.pythonanywhere.com/api/products/delete/${id}/`,
+      config
+    );
 
     dispatch({
       type: PLANT_DELETE_SUCCESS,
@@ -123,7 +128,11 @@ export const createPlants = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.post(`/api/products/create/`, {}, config);
+    const { data } = await axios.post(
+      `https://sddizon1.pythonanywhere.com/api/products/create/`,
+      {},
+      config
+    );
 
     dispatch({
       type: PLANT_CREATE_SUCCESS,
