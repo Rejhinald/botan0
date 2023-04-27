@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import './style.css';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import "./style.css";
 
 function Subscriptionscreen() {
   const [subscribed, setSubscribed] = useState(false);
-  const couponCode = 'STEALDEAL20';
+  const couponCode = "STEALDEAL20";
 
   const handleSubscribe = () => {
     navigator.clipboard.writeText(couponCode);
@@ -15,16 +15,19 @@ function Subscriptionscreen() {
     <div className="container">
       <div className="coupon-card">
         <img src="handplant.png" alt="Handplant" />
-        <h3>To All Subscribers Could Gain <br />All Access to This App</h3>
+        <h3>
+          To All Subscribers Could Gain <br />
+          All Access to This App
+        </h3>
 
         <div className="coupon-row">
           <Link to="/subscribe">
             <span
               id="cpnBtn"
               onClick={handleSubscribe}
-              className={subscribed ? 'subscribed' : ''}
+              className={subscribed ? "subscribed" : ""}
             >
-              {subscribed ? 'Subscribed' : 'Subscribe'}
+              {subscribed ? "Subscribed" : "Subscribe"}
             </span>
           </Link>
         </div>
