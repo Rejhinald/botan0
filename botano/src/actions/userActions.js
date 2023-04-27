@@ -20,7 +20,7 @@ export const login = (email, password) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      `${BASE_URL}/api/users/login/`,
+      `https://sddizon1.pythonanywhere.com/api/users/login/`,
       { username: email, password: password },
       config
     );
