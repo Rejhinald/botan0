@@ -3,6 +3,6 @@ from botano.views import plant_views as views
 
 
 urlpatterns = [
-    path('', views.getPlants, name='plants'),
-    path('<str:pk>/', views.getPlant, name='plant'),
+    path('', views.get_plants, name='plants'),
+    path('<str:pk>/', views.get_plant, name='plant'),
 ]

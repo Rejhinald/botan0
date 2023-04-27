@@ -20,6 +20,10 @@ const Searchscreen = () => {
     event.preventDefault();
   };
 
+  const filteredPlants = plants.filter((plant) => {
+    return plant.name.toLowerCase().includes(search.toLowerCase());
+  });
+
   return (
     <main onContextMenu={handleRightClick}>
       <div>
@@ -48,12 +52,15 @@ const Searchscreen = () => {
           <Message variant="danger">{error}</Message>
         ) : (
           <Row>
-            {plants &&
-              plants.map((plant) => (
+            {filteredPlants.length === 0 ? (
+              <p>No plants found</p>
+            ) : (
+              filteredPlants.map((plant) => (
                 <Col key={plant.id} sm={12} md={9} lg={8} xl={3}>
                   <Plant plant={plant} />
                 </Col>
-              ))}
+              ))
+            )}
           </Row>
         )}
       </div>

@@ -149,4 +149,4 @@ export const createPlants = () => async (dispatch, getState) => {
   }
 };
 
-export default listPlants;
+export default { listPlants, listPlantDetails, deletePlants, createPlants };
