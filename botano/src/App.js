@@ -12,6 +12,8 @@ import Subscriptionscreen from './screens/Subscriptionscreen'
 import Orderscreen from './screens/Orderscreen'
 import SubscribeScreen from './screens/SubscribeScreen'
 import PlantList from './screens/PlantList'
+import UserListScreen from './screens/UserListScreen'
+import PlantListScreen from './screens/PlantListScreen'
 
 // }
 
@@ -29,6 +31,8 @@ const App = () => {
           <Route path='/subscription' element={<Subscriptionscreen />} exact></Route>
           <Route path='/order' element={<Orderscreen />} exact></Route>
           <Route path='/subscribe' element={<SubscribeScreen />} exact></Route>
+          <Route path='/admin/userlist' element={<UserListScreen />} exact></Route>
+          <Route path='/admin/productlist' element={<PlantListScreen />}exact></Route>
         </Routes>
       </div>
       <Footer />

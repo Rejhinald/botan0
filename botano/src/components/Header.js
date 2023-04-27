@@ -3,7 +3,7 @@ import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
-import logout from "../actions/userActions";
+import { logout } from "../actions/accountActions";
 
 function Header() {
   const dispatch = useDispatch();
@@ -18,8 +18,8 @@ function Header() {
 
   return (
     <header>
-      <Navbar className="navbar bg-dark navbar-dark sticky-top" variant="light">
-        <div className="container-fluid">
+      <Navbar className="navbar bg-dark navbar-dark sticky-top" variant="light" expand="md" fluid>
+        <div className="container-fluid" style={{ width: "85%" }}>
           <Navbar.Brand href="/">
             <h1 className="text-light">Botano</h1>
           </Navbar.Brand>
@@ -30,10 +30,7 @@ function Header() {
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
               {userInfo ? (
-                <NavDropdown title={userInfo.username} id="basic-nav-dropdown">
-                  <LinkContainer to="/profile" style={{ color: "#ffcba4" }}>
-                    <NavDropdown.Item>Profile</NavDropdown.Item>
-                  </LinkContainer>
+                <NavDropdown title={userInfo.email} id="basic-nav-dropdown">
                   <NavDropdown.Item
                     onClick={logoutHandler}
                     href="/"
@@ -63,7 +60,7 @@ function Header() {
                 </>
               )}
 
-              {userInfo && userInfo.admin && (
+              {userInfo && userInfo.isAdmin && (
                 <NavDropdown title="Admin" id="adminmenu">
                   <LinkContainer to="/admin/userlist">
                     <NavDropdown.Item>Users</NavDropdown.Item>
@@ -71,10 +68,6 @@ function Header() {
 
                   <LinkContainer to="/admin/productlist">
                     <NavDropdown.Item>Products</NavDropdown.Item>
-                  </LinkContainer>
-
-                  <LinkContainer to="/admin/orderlist">
-                    <NavDropdown.Item>Orders</NavDropdown.Item>
                   </LinkContainer>
                 </NavDropdown>
               )}

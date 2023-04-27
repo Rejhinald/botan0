@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+
 import Plant from "../components/Plant";
 import { Row, Col, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { listPlants } from "../actions/plantActions";
-import { useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
+
+
+
 
 function Homescreen() {
   document.body.style.backgroundImage =
@@ -25,6 +29,17 @@ function Homescreen() {
   const handleStartSearch = () => {
     navigate("/search");
   };
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+  
+  if (!userInfo) {
+    navigate("/login");
+  } else {
+    if (!userInfo.isSubscriber) {
+      navigate("/subscription");
+    }
+  }
 
   return (
     <div className="container">

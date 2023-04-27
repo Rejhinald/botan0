@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import { Col, Row, Image, ListGroup, ListGroupItem, Card, Button, Form } from 'react-bootstrap'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
@@ -8,7 +8,7 @@ import { listPlantDetails } from '../actions/plantActions'
 
 const Plantscreen = ({ match }) => {
     const { id } = useParams();
-
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const plantDetails = useSelector(state => state.plantDetails)
     const { loading, error, plant } = plantDetails
@@ -17,7 +17,18 @@ const Plantscreen = ({ match }) => {
         dispatch(listPlantDetails(id))
   
   }, [dispatch, match])
- 
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+  
+  if (!userInfo) {
+    navigate("/login");
+  } else {
+    if (!userInfo.isSubscriber) {
+      navigate("/subscription");
+    }
+  }
+
   return (
     <>
         <Link className='btn btn-dark my-3' to='/search '>

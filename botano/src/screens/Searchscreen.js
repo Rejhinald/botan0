@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, Form, Button } from "react-bootstrap";
 import Plant from "../components/Plant";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector, } from "react-redux";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { listPlants } from "../actions/plantActions";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 const Searchscreen = () => {
   const dispatch = useDispatch();
@@ -23,6 +24,19 @@ const Searchscreen = () => {
   const filteredPlants = plants.filter((plant) => {
     return plant.name.toLowerCase().includes(search.toLowerCase());
   });
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+  
+  const navigate = useNavigate();
+
+  if (!userInfo) {
+    navigate("/login");
+  } else {
+    if (!userInfo.isSubscriber) {
+      navigate("/subscription");
+    }
+  }
 
   return (
     <main onContextMenu={handleRightClick}>

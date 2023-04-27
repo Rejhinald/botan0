@@ -5,10 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { listPlantDetails } from '../actions/plantActions';
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 const PlantDetailsScreen = () => {
   const { _id } = useParams();
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const plantDetails = useSelector((state) => state.plantDetails);
   const { loading, error, plant } = plantDetails;
@@ -27,6 +28,17 @@ const PlantDetailsScreen = () => {
 
   if (!plant) {
     return <Message variant='danger'>Plant not found</Message>;
+  }
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+  
+  if (!userInfo) {
+    navigate("/login");
+  } else {
+    if (!userInfo.isSubscriber) {
+      navigate("/subscription");
+    }
   }
 
   return (

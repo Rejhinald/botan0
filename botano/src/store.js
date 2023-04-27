@@ -3,14 +3,18 @@
  import thunk from 'redux-thunk';
  import { composeWithDevTools } from "redux-devtools-extension";
  import { plantListReducer, plantDetailsReducer } from './reducers/plantReducers';
- import { userLoginReducer } from './reducers/userReducers'
 import { orderSubscribe } from "./reducers/orderReducers";
-
+import { userLoginReducer, userUpdateReducer, userPaymentReducer, cancelSubscriptionReducer, userDetailsReducer, UserListReducer } from './reducers/accountReducers'
 
  const reducer = combineReducers({
      plantList: plantListReducer,
      plantDetails: plantDetailsReducer,
+     userUpdate: userUpdateReducer,
+     userPayment: userPaymentReducer,
      userLogin: userLoginReducer,
+     userDetails: userDetailsReducer,
+     userList : UserListReducer,
+     cancelSubscription: cancelSubscriptionReducer,
      orderSubscribe: orderSubscribe,
  })
 

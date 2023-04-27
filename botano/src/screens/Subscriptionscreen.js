@@ -14,7 +14,7 @@ function Subscriptionscreen() {
   return (
     <div className="container">
       <div className="coupon-card">
-        <img src="handplant.png" alt="Handplant" />
+        <img src="https://media.istockphoto.com/id/1225394970/photo/ecology-protection-of-natural-environment-earth-day-concept.jpg?b=1&s=170667a&w=0&k=20&c=eiwkEtn8WebfpbSnYG-fz0EBsNNRegUti8WyrQFmUso=" alt="Handplant" />
         <h3>
           To All Subscribers Could Gain <br />
           All Access to This App

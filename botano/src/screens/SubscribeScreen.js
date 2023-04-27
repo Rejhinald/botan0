@@ -1,62 +1,33 @@
-import React, { useEffect } from 'react';
-import { PayPalButton } from 'react-paypal-button-v2';
-import { useDispatch, useSelector } from 'react-redux';
-import { paySubscribe } from '../actions/orderAction';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import ButtonWrapper from "../components/ButtonWrapper";
 
-
-const SubscribeScreen = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const orderSubscribe = useSelector((state) => state.orderSubscribe);
-  const { success, error } = orderSubscribe;
-
-  const createOrder = (data, actions) => {
-    return actions.order.create({
-      purchase_units: [
-        {
-          amount: {
-            value: '10.00',
-            currency_code: 'USD'
-          }
-        }
-      ]
-    });
-  };
-
-  useEffect(() => {
-    if (success) {
-      navigate('/');
-    }
-  })
-
-  const onApprove = (data, actions) => {
-    dispatch(paySubscribe());
-    return actions.order.capture().then(function(details) {
-      alert('Transaction completed by ' + details.payer.name.given_name);
-      // TODO: Add logic to handle successful payment
-    });
-  };
+function SubscribeScreen() {
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   return (
-    <div style={{ backgroundColor: '#e6ffe6', padding: '20px' }}>
-      <div style={{ backgroundColor: 'lightgreen', padding: '20px' }}>
-        <h1>Subscribe Now!</h1>
-        <PayPalButton
-          createOrder={createOrder}
-          onApprove={onApprove}
-          onError={(err) => console.log(err)}
-          options={{
-            clientId: 'AeErKQuXz4s8tD5SWmkNidaU_nUN99zp5fwN2xvSbIAtSwZsmLFleAGws4nEk4sryrbn6AqD6JLf_kol',
-            currency: 'USD',
-          }}
-        />
-      </div>
-    </div>
+    <>
+      {userInfo && !userInfo.isSubscriber && (
+        <div className="text-center my-4">
+          <h1>Subscribe now</h1>
+          <PayPalScriptProvider
+            options={{
+              "client-id":
+                "AUgpEmZhBp5JIEIFTUcY2fCqZGncGEduE2tq8suRS39oXl768r0V30K8JwyfmFvjSLGr8kMFSZTJQ2R5",
+              components: "buttons",
+              intent: "subscription",
+              vault: true,
+            }}
+          >
+            <ButtonWrapper type="subscription" />
+          </PayPalScriptProvider>
+        </div>
+      )}
+    </>
   );
-};
-
+}
 
 export default SubscribeScreen;
-
