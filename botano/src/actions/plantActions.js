@@ -1,4 +1,3 @@
-import { BASE_URL } from "../config,js";
 import {
   PLANT_LIST_REQUEST,
   PLANT_LIST_SUCCESS,

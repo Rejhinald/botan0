@@ -5,7 +5,6 @@ import {
   USER_LOGIN_FAIL,
   USER_LOGOUT,
 } from "../constants/userConstant";
-import { BASE_URL } from "../config,js";
 
 export const login = (email, password) => async (dispatch) => {
   try {
