@@ -31,7 +31,7 @@ export const listPlants = () => async (dispatch, getState) => {
     };
 
     const { data } = await axios.get(
-      "http://127.0.0.1:8000/sddizon1.pythonanywhere.com/api/plants/",
+      "http://sddizon1.pythonanywhere.com/api/plants/",
       config
     );
 
@@ -57,7 +57,7 @@ export const listPlantDetails = (id) => async (dispatch) => {
     });
 
     const { data } = await axios.get(
-      `http://127.0.0.1:8000https://sddizon1.pythonanywhere.com/api/plants/${id}`
+      `http://sddizon1.pythonanywhere.com/api/plants/${id}`
     );
 
     dispatch({
